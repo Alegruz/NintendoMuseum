@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-#include "Cartridge.h"
+#include "NES/Cartridge.h"
 
 using namespace ninmuse;
 using namespace ninmuse::nes;
@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
 	const std::filesystem::path romFilePath = workingDirectory / romFileName;
 	Cartridge cartridge(romFilePath);
 
-	Cartridge::Header header = cartridge.ReadHeader();
+	cartridge.Read();
 
 	return 0;
 }

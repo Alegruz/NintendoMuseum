@@ -303,11 +303,7 @@ namespace ninmuse
 			{
 				mRomFile.read( &mProgramRom.Data.data()[i], 1 );
 			}
-			// mRomFile.read( mProgramRom.Data.data(), programRomSize );
-
-			// Address address{};
-			// address.Address.AddressValueBits.Low = mProgramRom.Data.data()[0xFFFD];
-			// address.Address.AddressValueBits.High = mProgramRom.Data.data()[0xFFFC];
+			
 			const uint8_t addressLow = mProgramRom.Data.data()[0xFFFC];
 			const uint8_t addressHigh = mProgramRom.Data.data()[0xFFFD];
 			const uint16_t address = ( static_cast< uint16_t >( addressHigh ) << 8 ) + addressLow;
@@ -338,7 +334,7 @@ namespace ninmuse
 			return mCharacterRom.Data;
 		}
 
-		constexpr size_t Cartridge::getProgramRomSize() const noexcept
+		size_t Cartridge::getProgramRomSize() const noexcept
 		{
 			ProgramRom::Size programRomSizeData;
 			if ( isNes2_0Format() )
@@ -350,7 +346,7 @@ namespace ninmuse
 			if ( isNes2_0Format() && programRomSizeData.NES2_0Bits.SizeHigh != 0b1111 )
 			{
 				const size_t programRomSize =
-					( static_cast< size_t >( 2 ) << static_cast< size_t >( programRomSizeData.NES2_0Bits.SizeLow.ExponentMultiplier.Exponent ) ) * ( programRomSizeData.NES2_0Bits.SizeLow.ExponentMultiplier.Multiplier * 2 + 1 );
+					( static_cast< size_t >( 2 ) << static_cast< size_t >( programRomSizeData.NES2_0Bits.SizeLow.ExponentMultiplier.Exponent ) ) * ( static_cast< size_t >( programRomSizeData.NES2_0Bits.SizeLow.ExponentMultiplier.Multiplier ) * 2 + 1 );
 				return programRomSize;
 			}
 			else
@@ -360,7 +356,7 @@ namespace ninmuse
 			}
 		}
 
-		constexpr size_t Cartridge::getCharacterRomSize() const noexcept
+		size_t Cartridge::getCharacterRomSize() const noexcept
 		{
 			CharacterRom::Size characterRomSizeData;
 			if ( isNes2_0Format() )
@@ -372,7 +368,7 @@ namespace ninmuse
 			if ( isNes2_0Format() && characterRomSizeData.NES2_0Bits.SizeHigh != 0b1111 )
 			{
 				const size_t characterRomSize =
-					( static_cast< size_t >( 2 ) << static_cast< size_t >( characterRomSizeData.NES2_0Bits.SizeLow.ExponentMultiplier.Exponent ) ) * ( characterRomSizeData.NES2_0Bits.SizeLow.ExponentMultiplier.Multiplier * 2 + 1 );
+					( static_cast< size_t >( 2 ) << static_cast< size_t >( characterRomSizeData.NES2_0Bits.SizeLow.ExponentMultiplier.Exponent ) ) * ( static_cast< size_t >( characterRomSizeData.NES2_0Bits.SizeLow.ExponentMultiplier.Multiplier ) * 2 + 1 );
 				return characterRomSize;
 			}
 			else
@@ -1698,7 +1694,7 @@ namespace ninmuse
 			};
 
 			memset( out_buffer64, 0, G_BUFFER_SIZE );
-			sprintf( out_buffer64, "OPCODE=%02X[%s %s] OPERAND=%s %s", opcode, mnemonic, address_mode, operand_hi_byte_string, operand_lo_byte_string );
+			sprintf_s( out_buffer64, G_BUFFER_SIZE, "OPCODE=%02X[%s %s] OPERAND=%s %s", opcode, mnemonic, address_mode, operand_hi_byte_string, operand_lo_byte_string );
 
 			return mem + 1 + operand_bytes;
 		}

@@ -8,7 +8,7 @@ namespace ninmuse
 	namespace nes
 	{
 		// Types
-		enum eConsoleType : uint8_t
+		enum class eConsoleType : uint8_t
 		{
 			NES_FAMICOM = 0b00,
 			NINTENDO_VS_SYSTEM,
@@ -142,6 +142,7 @@ namespace ninmuse
 				assert( false );
 				break;
 			}
+			return nullptr;
 		}
 
 		inline constexpr const char* CpuPpuTimingModeToString( const eCpuPpuTimingMode cpuPpuTimingMode ) noexcept
@@ -176,7 +177,6 @@ namespace ninmuse
 
 		inline constexpr const char* TvSystemTypeBitsToString( const tv_system_type_bits_t tvSystemTypeBits ) noexcept
 		{
-			eTvSystemType tvSystemType = eTvSystemType::NTSC;
 			const bool hasNtsc = HasTvSystemType( tvSystemTypeBits, eTvSystemType::NTSC );
 			const bool hasPal = HasTvSystemType( tvSystemTypeBits, eTvSystemType::PAL );
 			const char* ntsc = hasNtsc ? TvSystemTypeToString( eTvSystemType::NTSC ) : nullptr;
@@ -568,14 +568,14 @@ namespace ninmuse
 			const std::vector<char>&	ReadCharacterRom() noexcept;
 
 		private:
-			inline constexpr bool isNes2_0Format() const noexcept { return mHeader != nullptr && mHeader.get()->Flags07.Bits.NES2_0Id == Header::NES_2_0_ID; }
-			inline constexpr bool isTvSystemType( const eTvSystemType tvSystemType ) const noexcept { return mHeader != nullptr && mHeader.get()->Flags09.NESBits.TvSystem == tvSystemType; }
-			inline constexpr bool isNtsc() const noexcept { return isTvSystemType( eTvSystemType::NTSC ); }
-			inline constexpr bool isPal() const noexcept { return isTvSystemType( eTvSystemType::PAL ); }
-			inline constexpr bool isExtendedConsoleType() const noexcept { return mHeader != nullptr && mHeader.get()->Flags07.Bits.ConsoleType == eConsoleType::EXTENDED_CONSOLE_TYPE; }
-			inline constexpr bool isVsSystem() const noexcept { return mHeader != nullptr && mHeader.get()->Flags07.Bits.ConsoleType == eConsoleType::NINTENDO_VS_SYSTEM; }
-			constexpr size_t getProgramRomSize() const noexcept;
-			constexpr size_t getCharacterRomSize() const noexcept;
+			inline bool isNes2_0Format() const noexcept { return mHeader != nullptr && mHeader->Flags07.Bits.NES2_0Id == Header::NES_2_0_ID; }
+			inline bool isTvSystemType( const eTvSystemType tvSystemType ) const noexcept { return mHeader != nullptr && mHeader->Flags09.NESBits.TvSystem == tvSystemType; }
+			inline bool isNtsc() const noexcept { return isTvSystemType( eTvSystemType::NTSC ); }
+			inline bool isPal() const noexcept { return isTvSystemType( eTvSystemType::PAL ); }
+			inline bool isExtendedConsoleType() const noexcept { return mHeader != nullptr && mHeader->Flags07.Bits.ConsoleType == eConsoleType::EXTENDED_CONSOLE_TYPE; }
+			inline bool isVsSystem() const noexcept { return mHeader != nullptr && mHeader->Flags07.Bits.ConsoleType == eConsoleType::NINTENDO_VS_SYSTEM; }
+			size_t getProgramRomSize() const noexcept;
+			size_t getCharacterRomSize() const noexcept;
 
 		private:
 			std::filesystem::path		mRomFilePath;

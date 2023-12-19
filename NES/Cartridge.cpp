@@ -8,19 +8,6 @@ namespace ninmuse
 {
 	namespace nes
 	{
-		struct Address
-		{
-			union AddressValue
-			{
-				uint16_t	Value = 0;
-				struct AddressValueBits
-				{
-					uint8_t		Low;
-					uint8_t		High;
-				} AddressValueBits;
-			} Address;
-		};
-
 		const uint8_t* Disassemble( char* out_buffer64, const uint8_t* mem );
 
 		Cartridge::Cartridge( const std::filesystem::path& romFilePath ) noexcept
@@ -304,10 +291,10 @@ namespace ninmuse
 				mRomFile.read( &mProgramRom.Data.data()[i], 1 );
 			}
 			
-			const uint8_t addressLow = mProgramRom.Data.data()[0xFFFC];
-			const uint8_t addressHigh = mProgramRom.Data.data()[0xFFFD];
-			const uint16_t address = ( static_cast< uint16_t >( addressHigh ) << 8 ) + addressLow;
-			const uint8_t* mem = reinterpret_cast< uint8_t* >( &( mProgramRom.Data.data()[address] ) );
+			const data_t addressLow = mProgramRom.Data.data()[0xFFFC];
+			const data_t addressHigh = mProgramRom.Data.data()[0xFFFD];
+			const address_t address = CreateAddress( addressLow, addressHigh );
+			const data_t* mem = reinterpret_cast< data_t* >( &( mProgramRom.Data.data()[address] ) );
 			char buffer[64] = { 0, };
 			mem = Disassemble( buffer, mem );
 			std::cout << buffer << std::endl;

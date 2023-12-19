@@ -1,23 +1,33 @@
 #pragma once
 
-#include "stdafx.h"
+#include "Common.h"
 
 namespace ninmuse
 {
+
+	class Cpu
+	{
+	public:
+	private:
+	};
+
 	namespace nes
 	{
-		class Cpu
-		{
-		public:
-		private:
-
-		};
 
 		class Cpu6502 : public Cpu
 		{
 		public:
-			// [REF]: https://www.nesdev.org/wiki/CPU_pinout
 			struct Pins
+			{
+			};
+		private:
+		};
+
+		class CpuNes : public Cpu6502
+		{
+		public:
+			// [REF]: https://www.nesdev.org/wiki/CPU_pinout
+			struct NesPins : public Cpu6502::Pins
 			{
 			public:
 				bool	AudioOut1				: 1 = false;	// Both pulse waves
@@ -79,8 +89,15 @@ namespace ninmuse
 				bool	Output0					: 1 = false;	// and OUT0 is additionally used as the "strobe" signal (OUT) on both controller ports.
 				bool	SupplyVoltage			: 1 = false;
 			};
-			static_assert(sizeof(Pins) == 5, "There are 40 pins in 2A03/2A07");
-		private:
+			static_assert(sizeof(NesPins) == 5, "There are 40 pins in 2A03/2A07");
+
+		protected:
+			struct RegisterMap final
+			{
+				static constexpr address_t	Sequence1Volume = 0x4000;
+				static constexpr address_t	Sequence1Sweep = 0x4001;
+				//static constexpr address_t
+			};
 		};
 	}
 }

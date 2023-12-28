@@ -25,6 +25,7 @@
 namespace ninmuse
 {
 	constexpr const size_t NUM_BITS_IN_BYTE = 8;
+	constexpr const size_t KILO_BYTE = 1 << 10;
 
 	namespace nes
 	{

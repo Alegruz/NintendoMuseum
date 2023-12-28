@@ -15,6 +15,9 @@
     <Filter Include="Source Files\Cartridge">
       <UniqueIdentifier>{22dcee7a-0e10-4ba9-8981-ef9dc043f4a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Core">
+      <UniqueIdentifier>{00e282e5-dfba-4d76-8225-5c6c829ef3aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cpu.h">
@@ -35,6 +38,30 @@
     <ClInclude Include="Memory.h">
       <Filter>Source Files\Hardware</Filter>
     </ClInclude>
+    <ClInclude Include="StaticArray.h">
+      <Filter>Source Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticArray.hpp">
+      <Filter>Source Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="IArray.h">
+      <Filter>Source Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="ArrayView.h">
+      <Filter>Source Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicArray.h">
+      <Filter>Source Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicArray.hpp">
+      <Filter>Source Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Nes.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory.hpp">
+      <Filter>Source Files\Hardware</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -45,6 +72,15 @@
     </ClCompile>
     <ClCompile Include="Cartridge.cpp">
       <Filter>Source Files\Cartridge</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticArray.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Nes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Memory.cpp">
+      <Filter>Source Files\Hardware</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

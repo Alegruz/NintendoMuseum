@@ -1,0 +1,10 @@
+{
+  "FileVersion": 2,
+  "Id": "753a9828-22b7-4eea-96f3-81d78a839b7a",
+  "Items": [
+    {
+      "Id": "94f59887-682e-4562-9dcc-ea31be1ec1a5",
+      "Command": "CartidgeFileName=legend_of_zelda.nes"
+    }
+  ]
+}

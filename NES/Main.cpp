@@ -4,6 +4,7 @@
 #include <string>
 
 #include "NES/Cartridge.h"
+#include "NES/Nes.h"
 
 using namespace ninmuse;
 using namespace ninmuse::nes;
@@ -26,9 +27,12 @@ int main(int argc, char* argv[])
 
 	const std::filesystem::path workingDirectory = std::filesystem::current_path();
 	const std::filesystem::path romFilePath = workingDirectory / romFileName;
-	Cartridge cartridge(romFilePath);
+	std::unique_ptr<Cartridge> cartridge = std::make_unique<Cartridge>( romFilePath );
 
-	cartridge.Read();
+	Nes nes;
+	nes.InsertCartridge( std::move( cartridge ) );
+	nes.TurnOn();
+	nes.TurnOff();
 
 	return 0;
 }

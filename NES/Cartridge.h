@@ -561,6 +561,9 @@ namespace ninmuse
 			Cartridge& operator=( Cartridge&& ) = delete;
 
 		public:
+			inline constexpr const ProgramRom&
+										GetProgramRom() const noexcept { return mProgramRom; }
+
 			void						Read() noexcept;
 			const Header&				ReadHeader() noexcept;
 			const Trainer&				ReadTrainer() noexcept;

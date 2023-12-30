@@ -22,9 +22,10 @@ namespace ninmuse
 		constexpr const ElementType*	GetData() const noexcept override { return mData; }
 
 		// Capacities
-		constexpr size_t	GetSize() const noexcept override { return mSize; }
+		void				SetSize( const size_t zSize ) noexcept;
+		inline constexpr size_t	GetSize() const noexcept override { return mSize; }
 		void				SetCapacity( size_t zCapacity ) noexcept;
-		constexpr size_t	GetCapacity() const noexcept { return mCapacity; }
+		inline constexpr size_t	GetCapacity() const noexcept { return mCapacity; }
 
 		// Modifiers
 		constexpr void		Clear() noexcept;

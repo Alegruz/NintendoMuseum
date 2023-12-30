@@ -62,6 +62,9 @@
     <ClInclude Include="Memory.hpp">
       <Filter>Source Files\Hardware</Filter>
     </ClInclude>
+    <ClInclude Include="Cpu.hpp">
+      <Filter>Source Files\Hardware</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -73,13 +76,16 @@
     <ClCompile Include="Cartridge.cpp">
       <Filter>Source Files\Cartridge</Filter>
     </ClCompile>
-    <ClCompile Include="StaticArray.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
     <ClCompile Include="Nes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Memory.cpp">
+      <Filter>Source Files\Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="Common.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Cpu.cpp">
       <Filter>Source Files\Hardware</Filter>
     </ClCompile>
   </ItemGroup>

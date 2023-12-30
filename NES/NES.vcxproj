@@ -21,13 +21,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -87,6 +87,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ArrayView.h" />
+    <ClInclude Include="Cpu.hpp" />
     <ClInclude Include="DynamicArray.h" />
     <ClInclude Include="DynamicArray.hpp" />
     <ClInclude Include="IArray.h" />
@@ -103,10 +104,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cartridge.cpp" />
+    <ClCompile Include="Common.cpp" />
+    <ClCompile Include="Cpu.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Memory.cpp" />
     <ClCompile Include="Nes.cpp" />
-    <ClCompile Include="StaticArray.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>

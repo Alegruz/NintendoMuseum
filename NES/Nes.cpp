@@ -7,6 +7,13 @@ namespace ninmuse
 {
     namespace nes
     {
+		Nes::Nes()
+			: mCartridgeOrNull()
+			, mMemoryMap()
+			, mCpu( mMemoryMap, nullptr )
+        {
+        }
+
         void Nes::InsertCartridge( std::unique_ptr<Cartridge>&& cartridge ) noexcept
         {
             if ( mCartridgeOrNull != nullptr )
@@ -17,16 +24,19 @@ namespace ninmuse
             mCartridgeOrNull = std::move( cartridge );
         }
 
-        void Nes::TurnOn() noexcept
-        {
-            ReadCartridge();
+		void Nes::TurnOn() noexcept
+		{
+			readCartridge();
+            mCpu.SetRom( *mCartridgeOrNull );
+
+            mCpu.Run();
         }
 
         void Nes::TurnOff() noexcept
         {
         }
 
-        bool Nes::ReadCartridge() noexcept
+        bool Nes::readCartridge() noexcept
         {
             if ( mCartridgeOrNull == nullptr )
             {
@@ -34,10 +44,11 @@ namespace ninmuse
             }
             
             mCartridgeOrNull->Read();
+
             return true;
         }
 
-        void Nes::LoadProgramRom() noexcept
+        void Nes::loadProgramRom() noexcept
         {
             if ( mCartridgeOrNull == nullptr )
             {

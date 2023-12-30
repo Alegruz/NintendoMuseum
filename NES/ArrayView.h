@@ -14,11 +14,11 @@ namespace ninmuse
 			, mData( originalArray.GetData() + startIndex )
 		{}
 		ArrayView( const ArrayView& ) = delete;
-		ArrayView( ArrayView&& ) = delete;
+		explicit ArrayView( ArrayView&& ) noexcept = default;
 		~ArrayView() = default;
 
 		ArrayView& operator=( const ArrayView& ) = delete;
-		ArrayView& operator=( ArrayView&& ) = delete;
+		ArrayView& operator=( ArrayView&& ) noexcept = default;
 
 	public:
 		inline constexpr ElementType*		GetData() noexcept override { return mData; }
@@ -28,7 +28,7 @@ namespace ninmuse
 		constexpr size_t					GetSize() const noexcept override { return mSize; }
 
 	private:
-		const size_t		mSize;
+		size_t				mSize;
 		ElementType*		mData;
 	};
 }

@@ -19,13 +19,11 @@ namespace ninmuse
 		, mData( nullptr )
 	{
 		SetCapacity( mCapacity );
-
-		assert( mData != nullptr );
 	}
 
 	template<typename ElementType>
 	inline DynamicArray<ElementType>::DynamicArray( const DynamicArray& other ) noexcept
-		: IArray( other )
+		: IArray<ElementType>( other )
 		, mCapacity( other.mCapacity )
 		, mSize( other.mSize )
 	{
@@ -37,7 +35,7 @@ namespace ninmuse
 
 	template<typename ElementType>
 	inline constexpr DynamicArray<ElementType>::DynamicArray( DynamicArray&& other ) noexcept
-		: IArray( std::move( other ) )
+		: IArray<ElementType>( std::move( other ) )
 		, mCapacity( other.mCapacity )
 		, mSize( other.mSize )
 		, mData( other.mData )
@@ -57,7 +55,7 @@ namespace ninmuse
 	{
 		if ( mData != nullptr )
 		{
-			delete[] mData;
+			free( mData );
 		}
 	}
 
@@ -95,17 +93,43 @@ namespace ninmuse
 	}
 
 	template<typename ElementType>
+	inline void DynamicArray<ElementType>::SetSize( const size_t zSize ) noexcept
+	{
+		const bool needsReallocation = mData == nullptr || mCapacity < zSize;
+
+		if ( needsReallocation == true )
+		{
+			ElementType* paData = new ElementType[zSize];
+			if ( mData != nullptr )
+			{
+				memcpy( paData, mData, sizeof( ElementType ) * mSize );
+				free( mData );
+			}
+
+			mCapacity = zSize;
+			mSize = zSize;
+			mData = paData;
+		}
+	}
+
+	template<typename ElementType>
 	inline void DynamicArray<ElementType>::SetCapacity( size_t capacity ) noexcept
 	{
 		const bool needsReallocation = mData == nullptr || mCapacity < capacity;
 
 		if ( needsReallocation == true )
 		{
-			ElementType* paData = new ElementType[capacity];
+			ElementType* paData = static_cast<ElementType*>( malloc( sizeof( ElementType ) * capacity ) );
+			if ( paData == nullptr )
+			{
+				NM_ASSERT( false, "Failed to allocate an array!!" );
+				return;
+			}
+
 			if ( mData != nullptr )
 			{
 				memcpy( paData, mData, sizeof( ElementType ) * mSize );
-				delete[] mData;
+				free( mData );
 			}
 
 			mCapacity = capacity;

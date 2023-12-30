@@ -1,7 +1,8 @@
 #pragma once
 
 #include <fstream>
-#include <vector>
+
+#include "DynamicArray.h"
 
 namespace ninmuse
 {
@@ -123,7 +124,7 @@ namespace ninmuse
 			case eConsoleType::EXTENDED_CONSOLE_TYPE:
 				return "Extended Console Type";
 			default:
-				assert( false );
+				NM_ASSERT( false, "Invalid console type!!" );
 				break;
 			}
 
@@ -139,7 +140,7 @@ namespace ninmuse
 			case eTvSystemType::PAL:
 				return "PAL";
 			default:
-				assert( false );
+				NM_ASSERT( false, "Invalid TV system type!!" );
 				break;
 			}
 			return nullptr;
@@ -158,7 +159,7 @@ namespace ninmuse
 			case eCpuPpuTimingMode::UA6538:
 				return "UA6538::Dendy";
 			default:
-				assert( false );
+				NM_ASSERT( false, "Invalid CPU/PPU timing mode!!" );
 				break;
 			}
 			return nullptr;
@@ -197,7 +198,7 @@ namespace ninmuse
 				return pal;
 			}
 
-			assert( false );
+			NM_ASSERT( false, "Invalid TV system type!!" );
 			return nullptr;
 		}
 
@@ -222,7 +223,7 @@ namespace ninmuse
 			case ePpuType::RESERVED_E:	return "Reserved E";
 			case ePpuType::RESERVED_F:	return "Reserved F";
 			default:
-				assert( false );
+				NM_ASSERT( false, "Invalid PPU type!!" );
 				break;
 			}
 			return nullptr;
@@ -240,7 +241,7 @@ namespace ninmuse
 			case eVsHardwareType::VS_DUALSYSTEM_NORMAL:								return "Vs. Dual System (normal)";
 			case eVsHardwareType::VS_DUALSYSTEM_RAID_ON_BUNGELING_BAY_PROTECTION:	return "Vs. Dual System (Raid on Bungeling Bay protection)";
 			default:
-				assert( false );
+				NM_ASSERT( false, "Invalid VS hardware type!!" );
 				break;
 			}
 			return nullptr;
@@ -267,7 +268,7 @@ namespace ninmuse
 			case eExtendedConsoleType::RESERVED_E:												return	"Reserved E";
 			case eExtendedConsoleType::RESERVED_F:												return	"Reserved F";
 			default:
-				assert( false );
+				NM_ASSERT( false, "Invalid extended console type!!" );
 				break;
 			}
 			return nullptr;
@@ -514,7 +515,7 @@ namespace ninmuse
 						uint8_t mPadding	: 4;
 					} NES2_0Bits;
 				};
-				std::vector<char>	Data;
+				DynamicArray<data_t>	Data;
 			};
 
 			struct CharacterRom
@@ -547,7 +548,7 @@ namespace ninmuse
 						uint8_t mPadding	: 4;
 					} NES2_0Bits;
 				};
-				std::vector<char>	Data;
+				DynamicArray<data_t>	Data;
 			};
 
 		public:
@@ -567,8 +568,8 @@ namespace ninmuse
 			void						Read() noexcept;
 			const Header&				ReadHeader() noexcept;
 			const Trainer&				ReadTrainer() noexcept;
-			const std::vector<char>&	ReadProgramRom() noexcept;
-			const std::vector<char>&	ReadCharacterRom() noexcept;
+			const DynamicArray<data_t>&	ReadProgramRom() noexcept;
+			const DynamicArray<data_t>&	ReadCharacterRom() noexcept;
 
 		private:
 			inline bool isNes2_0Format() const noexcept { return mHeader != nullptr && mHeader->Flags07.Bits.NES2_0Id == Header::NES_2_0_ID; }

@@ -14,7 +14,7 @@ namespace ninmuse
 		class Nes final
 		{
 		public:
-			Nes() = default;
+			Nes();
 			~Nes() = default;
 
 			void	InsertCartridge( std::unique_ptr<Cartridge>&& cartridge ) noexcept;
@@ -23,13 +23,13 @@ namespace ninmuse
 			void	TurnOff() noexcept;
 
 		private:
-			bool	ReadCartridge() noexcept;
-			void	LoadProgramRom() noexcept;
+			void					loadProgramRom() noexcept;
+			bool					readCartridge() noexcept;
 
 		private:
-			CpuNes						mCpu;
 			std::unique_ptr<Cartridge>	mCartridgeOrNull;
-			MemoryMap					mMemoryMap;
+			NesRam						mMemoryMap;
+			CpuNes						mCpu;
 		};
 	}
 }
